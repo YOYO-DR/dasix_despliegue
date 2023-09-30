@@ -1,0 +1,75 @@
+{% extends 'body.html' %}
+{% load static %}
+{% block head %}
+<!--jquery-ui-->
+<link  href="{% static 'libs/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+<script src="{% static 'libs/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'libs/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'libs/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+<script src="{% static 'libs/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'libs/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'libs/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+{% block head_list %}
+{% endblock %}
+
+{% endblock %}
+
+{% block content %}
+<div class="card card-primary">
+    <div class="card-header bg-morado-2">
+    <h3 class="card-title">
+    <i class="fas fa-search"></i>
+    {{ title }}
+    </h3>
+    </div>
+    <div class="card-body">
+        <table class="table" id="data">
+            <thead>
+                {% block columnas %}
+
+                {% endblock %}
+            </thead>
+            <tbody>
+                {% block rows %}
+
+                {% endblock %}
+ 
+            </tbody>
+          </table>
+          <div class='card-footer'></div>
+          <a href= "{{ create_url }}" class="btn btn-primary btn-flat btnTest btn-bg-morado-2"><i class="fas fa-plus"></i> Nuevo registro</a>
+          <a href="{{ list_url }}" class="btn btn-success"><i class="fas fa-sync"></i> Actualizar</a>
+          </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type='application/javascript'>
+$(function(){
+    $('#data').DataTable({
+        responsive: false,
+        autowidth: false
+    });
+    $('.btnTest').on('click', function () {
+        $.ajax({
+            url: "{% url 'inventario:categoria_list' %}",
+            type: 'POST',
+            data: {id: 1},
+            dataType: 'json'
+        }).done(function (data) {
+            console.log(data);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus+': '+errorThrown);
+        }).always(function (data) {
+
+        });
+    });
+
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'home.html' %} 
+{% block body %}
+<body class="hold-transition layout-top-nav">
+  {% csrf_token %}
+  <div class="wrapper">
+    <!-- Header -->
+    {% include 'header.html' %}
+    <!-- Content -->
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">
+                Bienvenido <small>{{ request.user.get_full_name }}</small>
+              </h1>
+            </div>
+            {% if request.path != '/dashboard/' %}
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">
+                  <a href="{% url 'inventario:dashboard' %}">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="{{ list_url }}">{{ entity }}</a>
+                </li>
+              </ol>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="container">{% block content %} {% endblock %}</div>
+      </div>
+      
+    </div>
+    <!-- Footer -->
+    {% include 'footer.html' %}
+  </div>
+{% comment %} Modal {% endcomment %}
+<div
+  class="modal fade"
+  id="modal-contra"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <b class="b-modal-title"
+            ><i class="far fa-edit"></i> Cambio de contraseña</b
+          >
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column justify-content-center my-2">
+        <form id="cambio_contra_form">
+        <div class="form-group">
+          <label for="contra_actual">Contraseña actual</label>
+          <input type="password" required class="form-control" id="contra_actual" name="password">
+        </div>
+        <div class="form-group">
+          <label for="nueva_contra_1">Nueva contraseña</label>
+          <input type="password" required class="form-control" id="nueva_contra_1" name="password1">
+        </div>
+        <div class="form-group">
+          <label for="nueva_contra_2">Confirmar contraseña</label>
+          <input type="password" required class="form-control" id="nueva_contra_2" name="password2">
+        </div>
+        <button type="submit" class="btn btn-primary btn-bg-morado-2">Cambiar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} EndModal {% endcomment %}
+  <script>
+    {% if messages %}
+    var html = '<p>';
+        {% for message in messages %}
+        html += '{{ message }}<br>';
+        {% endfor %}
+        html += '</p>';
+        Swal.fire({
+            title: 'Error!',
+            html: html,
+            icon: 'error'
+            });
+        {% endif %}
+  {% comment %} Modal de cambio de contraseña {% endcomment %}
+  const modal = $("#modal-contra")
+  const btn_cambio=$("#cambio_contra")
+  const form_cambio_contra = $("#cambio_contra_form")
+  
+  btn_cambio.on("click",function(e){
+    e.preventDefault();
+    modal.modal("show");
+  })
+
+  form_cambio_contra.on("submit",function(e){
+    e.preventDefault()
+    form_data=new FormData(this)
+    submit_with_ajax(
+      "{% url 'user:cambio_contra' %}",
+      "Cambio contraseña", 
+      "¿Confirma cambio de contraseña?", 
+      form_data,
+    (data)=>{
+      Swal.fire({
+            title: 'Contraseña',
+            text: "Cambio de contraseña correcto",
+            icon: 'success'
+          }).then(function(){
+            window.location.href="{% url 'login' %}"
+          });
+      
+    })
+  })
+  </script>
+  {% block javascript %} {% endblock %}
+</body>
+{% endblock %}

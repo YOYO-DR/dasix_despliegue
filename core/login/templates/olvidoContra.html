@@ -1,0 +1,120 @@
+{% load static %} {% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{{ title }}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--Jquery-->
+    <script src="{% static 'libs/adminlte-3.0.4/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="{% static 'libs/adminlte-3.0.4/plugins/fontawesome-free/css/all.min.css' %}"
+    />
+    <!-- Theme style -->
+    <link
+      rel="stylesheet"
+      href="{% static 'libs/adminlte-3.0.4/css/adminlte.min.css' %}"
+    />
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+      rel="stylesheet"
+    />
+
+    <script src="{% static 'libs/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+    <!--Css style-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="icon" href="{% static 'img/logo-favi.png' %}" />
+    <script src="{% static 'js/functions.js' %}"></script>
+  </head>
+  <body class="hold-transition login-page">
+    <div class="login-box">
+      <div class="d-flex flex-column">
+        <div class="login-logo"><b>Da</b>six</div>
+        <div class="w-100 d-flex justify-content-center mb-4">
+          <img
+            src="{% static 'img/logo-favi.png' %}"
+            class="img-fluid"
+            alt="Dasix logo"
+          />
+        </div>
+      </div>
+      <!-- /.login-logo -->
+      <div class="card">
+        <div class="card-body login-card-body">
+          <p class="login-box-msg">Ingrese su correo para recuperar la contraseña</p>
+          <form action="." method="post">
+            <input type="hidden" name="next" value="{{ next }}" />
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <input type="email" name="email" class="form-control"  autocomplete="off" placeholder="Ingrese su correo" required>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+            <div class="row">
+              <div class="col-lg-12"></div>
+              <button
+              id="btn-submit"
+                type="submit"
+                class="btn btn-primary btn-block btn-bg-morado-2"
+              >
+                <i class="fas fa-sign-in-alt"></i> Recuperar contraseña
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/javascript">
+    //Obtengo el evento click del boton submit
+    $('form').on('submit', function (e){
+        e.preventDefault();
+        let btn= document.getElementById("btn-submit")
+        btn.disabled=true
+        //var parametros = $(this).serializeArray();
+        var parametros = new FormData(this);
+        $.ajax({
+              url: ".", 
+              type: "POST",
+              data: parametros, 
+              dataType: "json",
+              processData: false,
+              contentType: false
+            }).done(function (data) {
+                if (!data.hasOwnProperty("error")) {
+                  Swal.fire({
+                    title: '¡Email!',
+                    html: `Revisa tu correo y sigue las instrucciones <i>[${data.email}]</i>`,
+                    icon: 'success'
+                  });
+                  return false;
+                }
+                message_error(data.error);
+              })
+              .fail(function (jqXHR, textStatus, errorThrown) {
+                alert(`${textStatus} : ${errorThrown}`);
+              })
+              .always(function () {
+                btn.disabled=false
+              });
+      });
+    </script>
+
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="{% static 'libs/adminlte-3.0.4/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'libs/adminlte-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'libs/adminlte-3.0.4/js/adminlte.min.js' %}"></script>
+  </body>
+</html>

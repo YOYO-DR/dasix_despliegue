@@ -1,0 +1,24 @@
+{% extends 'list.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block head_list %}
+    <script 
+    data-url-delete="{% url 'inventario:proveedor_delete' 0 %}"
+    data-url-update="{% url 'inventario:proveedor_update' 0 %}"
+    src="{% static 'proveedor/js/list.js' %}"></script>
+{% endblock %}
+
+{% block columnas %}
+    <tr>
+        <th scope="col" style="width: 10%;">Nro</th>
+        <th scope="col" style="width: 15%;">Nombres</th>
+        <th scope="col" style="width: 10%;">Identificación</th>
+        <th scope="col" style="width: 15%;">Telefono</th>
+        <th scope="col" style="width: 15%;">Correo</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block javascript %}
+    
+{% endblock %}

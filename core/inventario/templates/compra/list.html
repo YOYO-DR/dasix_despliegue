@@ -1,0 +1,19 @@
+{% extends 'list.html' %} 
+{% load static %} 
+{% block head_list %}
+<script src="{% static 'compra/js/list.js' %}"></script>
+{% endblock %} 
+{% block columnas %}
+<tr>
+  <th scope="col" style="width: 10%">Nro</th>
+  <th scope="col" style="width: 20%">Proveedor</th>
+  <th scope="col" style="width: 15%">Producto</th>
+  <th scope="col" style="width: 25%">Precio producto</th>
+  <th scope="col" style="width: 15%">Cantidad</th>
+  <th scope="col" style="width: 15%">Opciones</th>
+</tr>
+{% endblock %} 
+{% block rows %} 
+{% endblock %} 
+{% block javascript %} 
+{% endblock %}

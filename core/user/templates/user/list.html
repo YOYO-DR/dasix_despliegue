@@ -1,0 +1,56 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block head_list %}
+<script src="{% static 'user/js/list.js' %}"></script>
+{% endblock %}
+
+{% block columnas %}
+<tr>
+    <th scope="col" style="width: 5%;">Nro</th>
+    <th scope="col" style="width: 13%;">Nombres</th>
+    <th scope="col" style="width: 13%;">Apellidos</th>
+    <th scope="col" style="width: 14%;">Username</th>
+    <th scope="col" style="width: 15%;">Fecha de registro</th>
+    <th scope="col" style="width: 10%;">Imagen</th>
+    <th scope="col" style="width: 15%;">Grupos</th>
+    <th scope="col" style="width: 15%;">Opciones</th>
+  </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block javascript %}
+{% comment %} Modal {% endcomment %}
+<div
+  class="modal fade"
+  id="modal-img"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <b class="b-modal-title"
+            ><i class="far fa-image"></i> Imagen usuario</b
+          >
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex justify-content-center my-2">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'body.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form method="post" action=".">
+    <div class="card card-default">
+    <div class="card-header bg-morado-2 text-white">
+    <h3 class="card-title">
+    <i class="fas fa-trash"></i>
+    {{ title }}
+    </h3>
+    </div>
+    <div class="card-body">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="{{ action }}">
+        {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar un registro</h5>
+            <ul>
+                {% for field in form %}
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+                {% endfor %}
+            </ul>
+            </div>
+        {% endif %}
+        <div class="alert alert-danger alert-dismissible">
+            <h5><i class="icon fas fa-ban"></i> Notificacion!</h5>
+            ¿Estas seguro de eliminar el registro Nro {{ object.id }}?
+            </div>
+          <div class='card-footer'></div>
+          <button type="submit" class="btn btn-primary btn-flat btn-bg-morado-2"><i class="fas fa-save"></i> Si, aceptar</button>
+
+          <a href="{{ list_url }}" class="btn btn-info btn-flat"> <i class="fas fa-times"> Cancelar</i></a>
+          </div>
+    </div>
+</div>
+</form>
+<script>
+    //Obtengo el evento click del boton submit
+    $('form').on('submit', function (e) {
+            e.preventDefault();
+            var parametros = new FormData(this);
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de eliminar el siguiente registro?', parametros, function () {
+                location.href = '{{ list_url }}';
+            });
+        });
+</script>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'email/base.html' %}
+
+{% block contenido %}
+<h2>Hola {{usuario.username}}</h2>
+<p>Como lo solicitaste, dale click al link para poder cambiar tu contraseña</p>
+<a href="{{dominio}}{% url 'recuperacion-cambio' uidb64=uid token=token %}">Cambiar contraseña</a>
+{% endblock contenido %}

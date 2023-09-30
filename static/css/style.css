@@ -1,0 +1,54 @@
+.bg-morado-1 {
+  background-color: #7900ac !important;
+}
+.bg-morado-2,
+.btn-bg-morado-2,
+.paginate_button.active a,
+.dropdown-item:active
+{
+  background-color: #9f34cc !important;
+}
+.bg-morado-3,
+.select2-results__option--highlighted {
+  background-color: #a23fcd !important;
+}
+.btn-bg-morado-2 {
+  border: none !important;
+}
+.img-fluid {
+  width: 50%;
+}
+
+.paginate_button.active a {
+  border: none;
+}
+.btn.btn-secondary{
+  background-color: #a23fcd !important;
+  border: none;
+}
+
+/*El selector "input:focus + .input-group-append .input-group-text" se utiliza para aplicar estilos específicos a un elemento ".input-group-text" que está dentro de ".input-group-append", solo cuando ese elemento ".input-group-append" sigue directamente después de un input en estado de :focus. Es una manera de aplicar estilos condicionales basados en la estructura y el estado de los elementos en el DOM.*/
+
+.input-group input:focus,
+.form-control:focus,
+.input-group input:focus + .input-group-append .input-group-text
+ {
+    border-color: #a23fcd !important;
+}
+
+.table-dash thead {
+  background-color: #9f34cc;
+  color: white;
+}
+
+.link_hover:hover {
+  color: #0d6efd;
+}
+
+.btn-img-info img {
+  transition: scale .3s ease;
+}
+
+.btn-img-info img:hover {
+  scale: 2;
+}
