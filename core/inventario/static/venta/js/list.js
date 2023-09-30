@@ -59,7 +59,6 @@ $(function () {
         .on('click', 'a[rel="detalle"]', function () {
             var tr = tblVenta.cell($(this).closest('td, li')).index();
             var data = tblVenta.row(tr.row).data();
-            console.log(data);
 
             $('#tblDet').DataTable({
                 responsive: true,
