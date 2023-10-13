@@ -192,7 +192,6 @@ class VentaUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Updat
         print(context['iva_por'])
         return context
 
-
 class VentaDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Venta
     template_name = 'venta/delete.html'
