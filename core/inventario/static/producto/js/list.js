@@ -66,11 +66,13 @@ $(function () {
         ],
       initComplete: function (settings, json) {
         //poner evento a los botones de la imagen de cada producto
-        $("#data").on("click", ".btn-img-info", function () {
-          let fila = $(this).closest("tr, li")
-          let data = data_table.row(fila).data();
+        $("#data").on("click", ".btn-img-info", function () {// seleccionar el boton con la imagen para mostrarla en el modal
+          let fila = $(this).closest("tr, li") //obtengo la fila
+          let data = data_table.row(fila).data(); // obtengo la info dee la fila
+          //pongo los datos en el modal
           $("#modal-img .modal-title b").html(`<i class="far fa-image"></i> Imagen del producto <i>${data.Nombre}</i>`)
           $("#modal-img .modal-body").html(`<img class="img-fluid" src="${data.image}">`);
+          //muestro el modal
           $("#modal-img").modal("show");
         })
         }

@@ -157,7 +157,6 @@ class Venta(BaseModel):
 
     def toJSON(self):
         item=model_to_dict(self)
-        #item['Cli']={"id": self.Cli.id, "Nombres": self.Cli.Nombres}
         item['Cli']=self.Cli.toJSON()
         item['Date_joined']=self.Date_joined.strftime('%Y-%m-%d')
         item['Subtotal']=format(self.Subtotal, '.2f')
@@ -167,6 +166,7 @@ class Venta(BaseModel):
         return item
     
     def delete(self, usign=None, keep_parents=False):
+        # sumo la cantidad de stock que se le quito a los productos de la venta
         for det in self.detalleventa_set.all():
             det.Produ.Stock += det.Cantidad
             det.Produ.save()

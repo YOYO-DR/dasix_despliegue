@@ -172,7 +172,7 @@ function formatRepo(repo) {
 
 // funcion principal que se ejecuta cuando cargue el html
 $(function () {
-  $(".select2").select2({ // seleccionar el select2 y convertirlo con la libreria de select2
+  $(".select2").select2({ // seleccionar el select y convertirlo con la libreria de select2
     theme: "bootstrap4",
     language: "es",
   });

@@ -1,23 +1,23 @@
 $(function(){
-    $('#data').DataTable({
-        responsive: true, 
-        autoWidth: false,
+    $('#data').DataTable({ //inicializar la tabla con datatable
+        responsive: true, // que sea reponsivo
+        autoWidth: false, // que respete los width de la tabla
         destroy: true,
-        deferRender: true,
-        ajax: {
+        deferRender: true, // manejo de muchos datos
+        ajax: {// peticion de los datos
             url: window.location.pathnam,
             type: 'POST',
             data: {'action': 'searchdata'}, // parametros
             dataSrc: ""
         },
-        columns: [
+        columns: [ //columnas
             { "data": "id"},
             { "data": "Nombre"},
             { "data": "Descripcion"},
             { "data": "Descripcion"},
         ],
         columnDefs: [
-            {
+            { // selecciono la ultima columna y le pongo los botones de actualizar y eliminar
                 targets: [-1],
                 class: 'text-center',
                 orderable: false,

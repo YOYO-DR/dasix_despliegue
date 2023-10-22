@@ -1,7 +1,7 @@
 //obtener el script
 const scriptElement = document.currentScript;
 
-//obtengo los valores de data
+//obtengo los valores de data - las url de actualizar y eliminar
 const urlDelete = scriptElement
   .getAttribute("data-url-delete")
   .replace("0/","");

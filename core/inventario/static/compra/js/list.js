@@ -1,3 +1,4 @@
+// lo mismo que categoria/js/list.js
 $(function () {
     const data_table = $("#data").DataTable({
       responsive: true,

@@ -139,7 +139,7 @@ class ClienteForm(ModelForm):
             ),
             'Sexo': Select()
         }
-        exclude = ['user_updated', 'user_creation']
+        exclude = ['user_update', 'user_creation']
 
     def save(self, commit=True):
         data = {}

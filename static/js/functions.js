@@ -64,7 +64,7 @@ function submit_with_ajax(url,title, content, parametros,callback) {
     });
   };
 
-  function alert_action(title, content, callback) {
+function alert_action(title, content, callback) {
     $.confirm({
       theme: "material", 
       title: title, 
