@@ -227,7 +227,7 @@ class ProveedorForm(ModelForm):
                 }
             )
         }
-        exclude = ['user_updated', 'user_creation']
+        exclude = ['user_update', 'user_creation']
 
     def save(self, commit=True):
         data = {}
