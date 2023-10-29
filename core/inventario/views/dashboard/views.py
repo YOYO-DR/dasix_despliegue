@@ -32,10 +32,6 @@ meses_espanol = {
 class DashboardView(TemplateView):
     template_name= 'dashboard.html'
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
         data = {}
         try:
@@ -65,6 +61,7 @@ class DashboardView(TemplateView):
             else:
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
+            data={}
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 

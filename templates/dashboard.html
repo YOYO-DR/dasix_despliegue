@@ -1,211 +1,276 @@
-{% extends 'body.html' %}
-{% load static %}
-{% block head %}
+{% extends 'body.html' %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static "dashboard/css/carrusel.css" %}">
+<script src="{% static "dashboard/js/carrusel.js" %}"></script>
 <script src="{% static 'libs/highcharts-8.1.2/highcharts.js' %}"></script>
 <script src="{% static 'libs/highcharts-8.1.2/modules/exporting.js' %}"></script>
 <script src="{% static 'libs/highcharts-8.1.2/modules/export-data.js' %}"></script>
 <script src="{% static 'libs/highcharts-8.1.2/modules/accessibility.js' %}"></script>
-{% endblock %}
-
+{% endblock %} 
 {% block content %}
 <div class="container-fluid">
+  <div class="w-100 d-flex flex-column align-items-center">
+    <img src="{% static "img/logo-favi.png" %}" alt="" class="img-fluid col-12
+    col-sm-6 logo-dash mb-3">
+    <div class="d-flex flex-column flex-md-row mb-3">
+      <div style="margin-right:20px;">
+        {% comment %} Carrousel 1 {% endcomment %}
+        <div
+        class="align-self-center container-carousel col-12"
+       >
+        {% comment %} Contenedor de imagenes {% endcomment %}
+        <div class="carruseles-1 carruseles" id="slider-1">
+          <section class="slider-section-1 slider-section">
+            <img src="{% static "img/logo-favi.png" %}" alt="" />
+          </section>
+          <section class="slider-section-1 slider-section">
+            <img src="{% static "img/logo.png" %}" alt="" />
+          </section>
+          <section class="slider-section-1 slider-section">
+            <img src="{% static "img/logo.jpeg" %}" alt="" />
+          </section>
+        </div>
+        <div class="btn-left-1 btn-left"><i class="fas fa-caret-left"></i></div>
+        <div class="btn-right-1 btn-right"><i class="fas fa-caret-right"></i></div>
+        </div>
+        {% comment %} Fin-carrousel 1 {% endcomment %}
+      </div>
+      <div style="margin-left:20px;">
+        {% comment %} Carrousel 2 {% endcomment %}
+        <div
+        class="align-self-center container-carousel col-12"
+       >
+        {% comment %} Contenedor de imagenes {% endcomment %}
+        <div class="carruseles-2 carruseles" id="slider-2">
+          <section class="slider-section-2 slider-section">
+            <img src="{% static "img/logo-favi.png" %}" alt="" />
+          </section>
+          <section class="slider-section-2 slider-section">
+            <img src="{% static "img/logo.png" %}" alt="" />
+          </section>
+          <section class="slider-section-2 slider-section">
+            <img src="{% static "img/logo.jpeg" %}" alt="" />
+          </section>
+        </div>
+        <div class="btn-left-2 btn-left"><i class="fas fa-caret-left"></i></div>
+        <div class="btn-right-2 btn-right"><i class="fas fa-caret-right"></i></div>
+        </div>
+        {% comment %} Fin-carrousel 2 {% endcomment %}
+      </div>
+    </div>
+  </div>
   <div class="mb-3">
     {% if alert_produ.vali %}
     <div class="alert alert-info alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <h5><i class="icon fas fa-info"></i> ¡<a class="link_hover" href="{% url 'inventario:producto_list' %}">Productos</a> con poco stock!</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-hidden="true"
+      >
+        ×
+      </button>
+      <h5>
+        <i class="icon fas fa-info"></i> ¡<a
+          class="link_hover"
+          href="{% url 'inventario:producto_list' %}"
+          >Productos</a
+        >
+        con poco stock!
+      </h5>
       <ul>
         {% for produ in alert_produ.produ %}
-          <li>{{produ.Nombre}}: <span class="text-warning">{{produ.Stock}} stock</span></li>
+        <li>
+          {{produ.Nombre}}:
+          <span class="text-warning">{{produ.Stock}} stock</span>
+        </li>
         {% endfor %}
       </ul>
-      </div>
+    </div>
     {% endif %}
-    <h3 class="text-center"><i class="fas fa-shopping-cart"></i> Las últimas ventas realizadas</h3>
-  <table class="table border table-dash">
-    <thead >
-      <tr>
-        <th scope="col">Nro</th>
-        <th scope="col">Cliente</th>
-        <th scope="col">Fecha de registro</th>
-        <th scope="col">Subtotal</th>
-        <th scope="col">Iva</th>
-        <th scope="col">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-      {% if not ventas %}
-      <tr>
-      <th colspan="6" class="text-center">Sin ventas</th>
-      </tr>
-      {% else %}
-      {% for venta in ventas %}
-      <tr>
-        <th scope="row">{{venta.id}}</th>
-        <td>{{venta.Cli.get_nombre}}</td>
-        <td>{{venta.Date_joined|date:"Y-m-d"}}</td>
-        <td>{{venta.Subtotal}}</td>
-        <td>{{venta.Iva}}</td>
-        <td>{{venta.Total}}</td>
-      {% endfor %}
-      </tr>
-      {% endif %}
-      
-    </tbody>
-  </table>
-
+    <h3 class="text-center">
+      <i class="fas fa-shopping-cart"></i> Las últimas ventas realizadas
+    </h3>
+    <table class="table border table-dash">
+      <thead>
+        <tr>
+          <th scope="col">Nro</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Fecha de registro</th>
+          <th scope="col">Subtotal</th>
+          <th scope="col">Iva</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if not ventas %}
+        <tr>
+          <th colspan="6" class="text-center">Sin ventas</th>
+        </tr>
+        {% else %} {% for venta in ventas %}
+        <tr>
+          <th scope="row">{{venta.id}}</th>
+          <td>{{venta.Cli.get_nombre}}</td>
+          <td>{{venta.Date_joined|date:"Y-m-d"}}</td>
+          <td>{{venta.Subtotal}}</td>
+          <td>{{venta.Iva}}</td>
+          <td>{{venta.Total}}</td>
+          {% endfor %}
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
   </div>
   <div class="d-flex flex-column flex-md-row justify-content-between">
     <div class="row col-12 col-md-6 mb-3">
-        <div class="col-lg-12">
-            <div id="container">
-              
-            </div>
-        </div>
-    </div>
-    
-    <div class="row col-12 col-md-6">
-        <div class="col-lg-12">
-            <div id="container-pie"></div>
-        </div>
+      <div class="col-lg-12">
+        <div id="container"></div>
+      </div>
     </div>
 
+    <div class="row col-12 col-md-6">
+      <div class="col-lg-12">
+        <div id="container-pie"></div>
+      </div>
+    </div>
   </div>
-    
 </div>
 
 <script type="application/javascript">
-   
+  var graphcolumn = Highcharts.chart("container", {
+    chart: {
+      type: "column",
+    },
+    title: {
+      text: "Reporte de ventas del año 2023",
+    },
+    subtitle: {
+      text: "Reporte de columnas",
+    },
+    xAxis: {
+      categories: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ],
+      crosshair: true,
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: "Valores $",
+      },
+    },
+    tooltip: {
+      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      pointFormat:
+        '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+      footerFormat: "</table>",
+      shared: true,
+      useHTML: true,
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0,
+      },
+    },
+  });
 
-   var graphcolumn = Highcharts.chart('container', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Reporte de ventas del año 2023'
-            },
-            subtitle: {
-                text: 'Reporte de columnas'
-            },
-            xAxis: {
-                categories: [
-                    'Enero',
-                    'Febrero',
-                    'Marzo',
-                    'Abril',
-                    'Mayo',
-                    'Junio',
-                    'Julio',
-                    'Agosto',
-                    'Septiembre',
-                    'Octubre',
-                    'Noviembre',
-                    'Diciembre'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Valores $'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-        });
+  let graphpie = Highcharts.chart("container-pie", {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: "pie",
+    },
+    title: {
+      text: "Porcentaje de venta de productos por el mes de Agosto del año 2023",
+    },
+    tooltip: {
+      pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+    },
+    accessibility: {
+      point: {
+        valueSuffix: "%",
+      },
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: "pointer",
+        dataLabels: {
+          enabled: true,
+          format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+        },
+      },
+    },
+  });
 
-        let graphpie = Highcharts.chart('container-pie', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Porcentaje de venta de productos por el mes de Agosto del año 2023'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                    }
-                }
-            },
-        });
-
-        function get_grafico_venta_mes() {
-            $.ajax({
-                url: window.location.pathname, //window.location.pathname
-                type: 'POST',
-                data: {
-                    'action': 'get_grafico_venta_mes'
-                },
-                dataType: 'json',
-            }).done(function (data) {
-                if (!data.hasOwnProperty('error')) {
-                    graphcolumn.addSeries(data);
-                    return false;
-                }
-                message_error(data.error);
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus + ': ' + errorThrown);
-            }).always(function (data) {
-
-            });
+  function get_grafico_venta_mes() {
+    $.ajax({
+      url: window.location.pathname, //window.location.pathname
+      type: "POST",
+      data: {
+        action: "get_grafico_venta_mes",
+      },
+      dataType: "json",
+    })
+      .done(function (data) {
+        if (!data.hasOwnProperty("error")) {
+          graphcolumn.addSeries(data);
+          return false;
         }
+        message_error(data.error);
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ": " + errorThrown);
+      })
+      .always(function (data) {});
+  }
 
-        function get_grafico_producto_venta_mes() {
-            $.ajax({
-                url: window.location.pathname, //window.location.pathname
-                type: 'POST',
-                data: {
-                    'action': 'get_grafico_producto_venta_mes'
-                },
-                dataType: 'json',
-            }).done(function (data) {
-                if (!data.hasOwnProperty('error')) {
-                    graphpie.addSeries(data.chart);
-                    graphpie.setTitle({ text: 'Porcentaje de venta de productos por el mes de ' + data.mes + " del año "+data.anio });
-                    return false;
-                }
-                message_error(data.error);
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus + ': ' + errorThrown);
-            }).always(function (data) {
-
-            });
+  function get_grafico_producto_venta_mes() {
+    $.ajax({
+      url: window.location.pathname, //window.location.pathname
+      type: "POST",
+      data: {
+        action: "get_grafico_producto_venta_mes",
+      },
+      dataType: "json",
+    })
+      .done(function (data) {
+        if (!data.hasOwnProperty("error")) {
+          graphpie.addSeries(data.chart);
+          graphpie.setTitle({
+            text:
+              "Porcentaje de venta de productos por el mes de " +
+              data.mes +
+              " del año " +
+              data.anio,
+          });
+          return false;
         }
+        message_error(data.error);
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ": " + errorThrown);
+      })
+      .always(function (data) {});
+  }
 
-        $(function () {
+  $(function () {
+    get_grafico_venta_mes();
 
-            get_grafico_venta_mes();
-
-            get_grafico_producto_venta_mes();
-
-        });
+    get_grafico_producto_venta_mes();
+  });
 </script>
 {% endblock %}

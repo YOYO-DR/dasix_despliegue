@@ -8,7 +8,7 @@ var tblProductos; //inicializar la variable del datatable
 
 var ventas = {
   // Inicializamos los valores de una venta
-  iva_por: 0.12, // Valor de iva predeterminado
+  iva_por: 0.19, // Valor de iva predeterminado
   items: {
     Cli: "", //cliente
     Date_joined: "", //fecha de creacion
